@@ -45,4 +45,11 @@ echo "<br>";
 print_r($spel2->letters);
 echo "<br>";
 echo $spel->gekozenwoord;
+echo "<br>";
+
+$word = $spel->gekozenwoord;
+$lettersGuessed = array('b','a','e');
+$pattern = '/[^' . implode('', $lettersGuessed) . ']/';   // results in '/[^ba]/
+$maskedWord = preg_replace($pattern, '-', $word);
+echo $maskedWord;
 ?>
