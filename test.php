@@ -1,13 +1,22 @@
 
 
 <?php
-  function voorbeeld($uitvoer){
-    echo $uitvoer;
-  }
+$words = [
+    'this',
+    'is',
+    'a',
+    'list',
+    'of',
+    'words'
+];
 
-  echo "ahmed";
-  voorbeeld("reza");
-  voorbeeld("einde");
+function isWoord($woord, $words){
+    if (in_array($woord, $words)) {
+        echo "Found";
 
+    }
+}
+
+isWoord('words', $words);
 
  ?>

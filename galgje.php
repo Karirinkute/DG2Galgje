@@ -2,11 +2,9 @@
 
  class spel {
 
- public $letters = array();
+ public $letters = [];
  public $gekozenwoord;
-
-  function randomWoord() {
-    $woorden = array(
+ public $woorden = [
       'appel',
       'boom',
       'auto',
@@ -15,12 +13,16 @@
       'laptop',
       'huis',
       'zomer',
-    );
-    $this->gekozenwoord = $woorden[rand ( 0 , count($woorden) -1)];
+    ];
+
+  function randomWoord() {
+
+    $this->gekozenwoord = $this->woorden[rand ( 0 , count($this->woorden) -1)];
+
     return $this->gekozenwoord;
   }
 
-    function addLetter($letter){
+  function addLetter($letter){
     array_push($this->letters, $letter);
   }
 
@@ -30,9 +32,12 @@
   }
 
   function isWoord($woord){
+      if (in_array($woord, $this->woorden)) {
+          return "Found";
+      }
 
+      return "Not Found";
   }
-
  }
 
 
@@ -43,9 +48,6 @@ $spel->addLetter('o');
 $spel->addLetter('s');
 echo "<br>";
 echo $spel->showWoord();
-// $word = $spel->gekozenwoord;
-// $lettersGuessed = array('b','a','e');
-// $pattern = '/[^' . implode('', $lettersGuessed) . ']/';   // results in '/[^ba]/
-// $maskedWord = preg_replace($pattern, '-', $word);
-// echo $maskedWord;
+echo "<br>";
+echo $spel->isWoord('appel', $spel->randomWoord());
 ?>
