@@ -1,38 +1,38 @@
 <?php
 
- class spel {
+ class game {
 
  public $letters = [];
- public $gekozenwoord;
- public $woorden = [
-      'appel',
-      'boom',
-      'auto',
+ public $chosenword;
+ public $words = [
+      'apple',
+      'tree',
+      'car',
       'school',
-      'tafel',
+      'table',
       'laptop',
-      'huis',
-      'zomer',
+      'house',
+      'summer',
     ];
 
-  function randomWoord() {
+  function randomWord() {
 
-    $this->gekozenwoord = $this->woorden[rand ( 0 , count($this->woorden) -1)];
+    $this->chosenword = $this->words[rand ( 0 , count($this->words) -1)];
 
-    return $this->gekozenwoord;
+    return $this->chosenword;
   }
 
   function addLetter($letter){
     array_push($this->letters, $letter);
   }
 
-  function showWoord(){
-      $pattern = '/[^' . implode('', $this->letters) . ']/';   // results in '/[^ba]/
-      return preg_replace($pattern, '-', $this->gekozenwoord);
+  function ShowWord(){
+      $pattern = '/[^' . implode('', $this->letters) . ']/';
+      return preg_replace($pattern, '-', $this->chosenword);
   }
 
-  function isWoord($woord){
-      if (in_array($woord, $this->woorden)) {
+  function isWord($woord, $randomRandom){
+      if ($woord == $randomRandom) {
           return "Found";
       }
 
@@ -41,13 +41,14 @@
  }
 
 
-$spel = new spel ();
-echo $spel ->randomWoord();
-$spel->addLetter('a');
-$spel->addLetter('o');
-$spel->addLetter('s');
+$game = new game ();
+$randomRandom = $game ->randomWord();
+echo $randomRandom;
+$game->addLetter('a');
+$game->addLetter('o');
+$game->addLetter('s');
 echo "<br>";
-echo $spel->showWoord();
+echo $game->ShowWord();
 echo "<br>";
-echo $spel->isWoord('appel', $spel->randomWoord());
+echo $game->isWord('apple', $randomRandom);
 ?>
