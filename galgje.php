@@ -1,54 +1,72 @@
 <?php
 
- class game {
+// your game class
+class game {
 
- public $letters = [];
- public $chosenword;
- public $words = [
-      'apple',
-      'tree',
-      'car',
-      'school',
-      'table',
-      'laptop',
-      'house',
-      'summer',
-    ];
+     public $letters = [];
+     public $chosenword;
+     public $words = [
+          'apple',
+          'tree',
+          'car',
+          'school',
+          'table',
+          'laptop',
+          'house',
+          'summer',
+        ];
 
-  function randomWord() {
+    function randomWord() {
 
-    $this->chosenword = $this->words[rand ( 0 , count($this->words) -1)];
+        $this->chosenword = $this->words[rand ( 0 , count($this->words) -1)];
+        return $this->chosenword;
+    }
 
-    return $this->chosenword;
-  }
+    function addLetter($letter){
+        array_push($this->letters, $letter);
+    }
 
-  function addLetter($letter){
-    array_push($this->letters, $letter);
-  }
+    function ShowWord(){
+        $pattern = '/[^' . implode('', $this->letters) . ']/';
+        return preg_replace($pattern, '-', $this->chosenword);
+    }
 
-  function ShowWord(){
-      $pattern = '/[^' . implode('', $this->letters) . ']/';
-      return preg_replace($pattern, '-', $this->chosenword);
-  }
+    function isWord($woord, $randomRandom){
+        if ($woord == $randomRandom) {
+            return "Found";
+        }
+        return "Not Found";
+    }
+}
 
-  function isWord($woord, $randomRandom){
-      if ($woord == $randomRandom) {
-          return "Found";
-      }
+// init a new game
+$game = new game();
 
-      return "Not Found";
-  }
- }
+// if the form is not sent before, show the form
+if( !isset( $_POST['chosenword'] ) )  { ?>
 
+<form action="" method="post">
+  <select name="chosenword">
+    <?php foreach( $game->words as $word ) { ?>
+      <option value="<?= $word; ?>"><?= $word; ?></option>
+    <?php } ?>
+  </select>
+  <button type="submit">Submit</button>
+</form>
 
-$game = new game ();
-$randomRandom = $game ->randomWord();
-echo $randomRandom;
-$game->addLetter('a');
-$game->addLetter('o');
-$game->addLetter('s');
-echo "<br>";
-echo $game->ShowWord();
-echo "<br>";
-echo $game->isWord('apple', $randomRandom);
+<?php } else {
+  // this will be executed if the form was sent before
+
+  // set the chosenword from the post data
+  $game->chosenword = $_POST['chosenword'];
+
+  // do the rest of your code
+  $randomRandom = $game->randomWord();
+  echo $randomRandom;
+  $game->addLetter('a');
+  echo "<br>";
+  echo $game->ShowWord();
+  echo "<br>";
+  echo $game->isWord('apple', $randomRandom);
+}
 ?>
