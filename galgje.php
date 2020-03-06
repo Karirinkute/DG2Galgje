@@ -61,12 +61,13 @@ if( !isset( $_POST['chosenword'] ) )  { ?>
   $game->chosenword = $_POST['chosenword'];
 
   // do the rest of your code
-  $randomRandom = $game->randomWord();
-  echo $randomRandom;
+  //$randomRandom = $game->randomWord();
+  //echo $randomRandom;
+  echo $game->chosenword;
   $game->addLetter('a');
   echo "<br>";
   echo $game->ShowWord();
   echo "<br>";
-  echo $game->isWord('apple', $randomRandom);
+  echo $game->isWord('apple', $game->chosenword);
 }
 ?>
